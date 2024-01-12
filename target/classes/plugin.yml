@@ -1,0 +1,5 @@
+name: tcp
+main: com.example.Plugin
+version: 1.0
+api-version: 1.15
+description: A plugin that allows you to receive TCP packets which should shutdown server.
