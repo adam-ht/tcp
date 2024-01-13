@@ -27,7 +27,7 @@
 	    <repository>
 	      <id>github</id>
 	      <name>GitHub Packages</name>
-	      <url>https://github.com/adam-ht/tcp</url>
+	      <url>https://maven.pkg.github.com/adam-ht/tcp</url>
 	    </repository>
 	</distributionManagement>
 
