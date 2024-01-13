@@ -23,6 +23,14 @@
 		</repository>
 	</repositories>
 
+	<distributionManagement>
+	    <repository>
+	      <id>github</id>
+	      <name>GitHub Packages</name>
+	      <url>https://maven.pkg.github.com/adam-ht/tcp</url>
+	    </repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
