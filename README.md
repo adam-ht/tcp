@@ -4,3 +4,5 @@
 This plugin is made by AI and changed for my purposes.
 
 When you add this plugin to the plugins folder, and then turn the server on, the plugin should add config.yaml inside plugins/tcp folder. There you can set port and the message which should turn the server off
+
+To test if plugin works just download packetsender and send packet to the port you set, and with the same message you set
