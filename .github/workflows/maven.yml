@@ -38,3 +38,7 @@ jobs:
         git-release-bot-email: "todomek1234@gmail.com"
 
         access-token: ${{ secrets.ACCESS_TOKEN }}
+        maven-repo-server-id: ${MAVEN_SERVER_ID}
+        maven-repo-server-username: adam-ht
+        maven-repo-server-password: ${{ secrets.ACCESS_TOKEN }}
+        maven-release-args: "-Dskip.unit.tests=true -Dskip.integration.tests=true"
