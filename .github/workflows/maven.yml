@@ -34,7 +34,7 @@ jobs:
       with:
         release-branch-name: "main"
 
-        git-release-bot-name: "release-bot"
-        git-release-bot-email: "release-bot@example.com"
+        git-release-bot-name: "adam-ht"
+        git-release-bot-email: "todomek1234@gmail.com"
 
         access-token: ${{ secrets.ACCESS_TOKEN }}
