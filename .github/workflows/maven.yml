@@ -40,5 +40,5 @@ jobs:
       id: upload-release-asset 
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: V3.0
+        tag_name: V2.0
       
