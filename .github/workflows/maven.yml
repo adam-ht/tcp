@@ -40,4 +40,5 @@ jobs:
       with:
         tag_name: V2.0
         token: ${{ secrets.GITHUB_TOKEN }}
+        files: /home/runner/work/tcp/tcp/target/tcp-2.0.jar
       
