@@ -40,6 +40,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
           files: /home/runner/work/tcp/tcp/target/tcp-2.0.jar
-          tag_name: V2.0
+          tag_name: V3.0
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
