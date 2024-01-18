@@ -35,9 +35,6 @@ jobs:
       uses: actions/upload-artifact@v4.1.0
       with:
         path: /home/runner/work/tcp/tcp/target/tcp-2.0.jar
-        
-    - name: Download Artifact and Upload to Release
-      uses: actions/download-artifact@v4
       
     - name: Upload Release Asset
       id: upload-release-asset 
