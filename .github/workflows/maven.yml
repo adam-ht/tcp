@@ -34,12 +34,6 @@ jobs:
       with:
         path: /home/runner/work/tcp/tcp/target/tcp-2.0.jar
 
-    - name: Create Release
-      id: create_release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: /home/runner/work/tcp/tcp/target/tcp-2.0.jar
-        token: ${{ secrets.GITHUB_TOKEN }}
        
     - name: Upload Release Asset
       id: upload-release-asset 
@@ -47,7 +41,7 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       with:
-          upload_url: https://api.github.com/adam-ht/tcp/releases/tag/V2.0 #ulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: adam-ht/tcp/releases/tag/V2.0 #ulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: /home/runner/work/tcp/tcp/target/tcp-2.0.jar
           asset_name: tcp-2.0.jar
           asset_content_type: application/jar
