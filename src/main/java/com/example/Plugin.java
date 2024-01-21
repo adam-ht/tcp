@@ -12,13 +12,14 @@ public class Plugin extends JavaPlugin {
 
     private ServerSocket serverSocket;
     FileConfiguration config = getConfig();
-
+    
     @Override
     public void onEnable() {
 
         config.addDefault("port:", 50000);
         config.addDefault("shutdown_command:", "SHUTDOWN");
         config.addDefault("delay(in seconds):", 120);
+        config.addDefault("allowed_ips:", "127.0.0.1");
         config.options().copyDefaults(true);
         saveConfig();
 
@@ -48,31 +49,47 @@ public class Plugin extends JavaPlugin {
 
     private void handlePacket(Socket clientSocket) {
         try {
-            int result = config.getInt("delay(in seconds):") / 60;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String message = reader.readLine();
+            String clientAddress = clientSocket.getInetAddress().getHostAddress();
+            if(isValidIPAddress(clientAddress)){
+                int result = config.getInt("delay(in seconds):") / 60;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                String message = reader.readLine();
 
-            if (message != null && message.equals(config.getString("shutdown_command:"))) {
-                getLogger().info("Received command " + config.getString("shutdown_command:") + ". Shutting down the server...");
-                if (config.getInt("delay(in seconds):") < 60) {
-                    getServer().broadcastMessage("Server will be powered off in " + config.getInt("delay(in seconds):") + " seconds");
+                if (message != null && message.equals(config.getString("shutdown_command:"))) {
+                    getLogger().info("Received command " + config.getString("shutdown_command:") + ". Shutting down the server...");
+                    if (config.getInt("delay(in seconds):") < 60) {
+                        getServer().broadcastMessage("Server will be powered off in " + config.getInt("delay(in seconds):") + " seconds");
+                    } else {
+                        getServer().broadcastMessage("Server will be powered off in " + result + " minutes");
+                    }
+                    
+                    try{
+                    TimeUnit.SECONDS.sleep(config.getInt("delay(in seconds):"));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    getServer().shutdown();
                 } else {
-                    getServer().broadcastMessage("Server will be powered off in " + result + " minutes");
+                    getLogger().warning("Received unrecognized command: " + message);
                 }
-                
-                try{
-                TimeUnit.SECONDS.sleep(config.getInt("delay(in seconds):"));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                getServer().shutdown();
             } else {
-                getLogger().warning("Received unrecognized command: " + message);
+                getLogger().warning("Received packet from unknown IP address: " + clientAddress);
             }
             clientSocket.close();
         } catch (IOException e) {
             getLogger().severe("Error handling package: " + e.getMessage());
         }
+    }
+
+    private boolean isValidIPAddress(String ipAddress) {
+        String[] allowedIPs = config.getString("allowed_ips:").split(",");
+        
+        for (String allowedIP : allowedIPs) {
+            if (ipAddress.equals(allowedIP.trim()) || allowedIP.trim().equals("0.0.0.0")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
